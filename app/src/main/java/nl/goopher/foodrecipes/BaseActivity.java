@@ -12,16 +12,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setContentView(int layoutResID) {
+
         ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
         FrameLayout frameLayout = constraintLayout.findViewById(R.id.activity_content);
         mProgressBar = constraintLayout.findViewById(R.id.progress_bar);
 
         getLayoutInflater().inflate(layoutResID, frameLayout, true);
-
-        super.setContentView(layoutResID);
+        super.setContentView(constraintLayout);
     }
 
-    public void showProgessBar(boolean visibility) {
-        mProgressBar.setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
+    public void showProgressBar(boolean visible) {
+
+        mProgressBar.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 }
