@@ -6,11 +6,14 @@ import android.arch.lifecycle.MutableLiveData;
 import java.util.List;
 
 import nl.goopher.foodrecipes.models.Recipe;
+import nl.goopher.foodrecipes.requests.RecipeApiClient;
 
 public class RecipeRepository {
 
     private static RecipeRepository instance;
-    private MutableLiveData<List<Recipe>> mRecipes;
+
+    private RecipeApiClient mRecipeApiClient;
+
 
     public static RecipeRepository getInstance() {
         if(instance == null) {
@@ -21,11 +24,11 @@ public class RecipeRepository {
     }
 
     private RecipeRepository() {
-        mRecipes = new MutableLiveData<>();
+        mRecipeApiClient = RecipeApiClient.getInstance();
     }
 
     public LiveData<List<Recipe>> getRecipes() {
-        return mRecipes;
+        return mRecipeApiClient.getRecipes();
     }
 
 }
