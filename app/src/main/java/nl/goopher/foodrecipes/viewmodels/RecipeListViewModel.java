@@ -7,17 +7,18 @@ import android.arch.lifecycle.ViewModel;
 import java.util.List;
 
 import nl.goopher.foodrecipes.models.Recipe;
+import nl.goopher.foodrecipes.repositories.RecipeRepository;
 
 public class RecipeListViewModel extends ViewModel {
 
-    private MutableLiveData<List<Recipe>> mRecipes = new MutableLiveData<>();
+    private RecipeRepository mRecipeRepository;
 
     public RecipeListViewModel() {
-
+        mRecipeRepository = RecipeRepository.getInstance();
     }
 
     public LiveData<List<Recipe>> getRecipes() {
-        return mRecipes;
+        return mRecipeRepository.getRecipes();
     }
 
 
