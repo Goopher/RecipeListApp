@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 
 import java.util.List;
 
@@ -33,7 +34,11 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         mRecipeListViewModel = ViewModelProviders.of(this).get(RecipeListViewModel.class);
         initRecyclerView();
         subscribeObservers();
-        testRetrofitRequest();
+        initSearchView();
+        if(!mRecipeListViewModel.isViewingRecipes()) {
+            // display search categories
+            displaySearchCategories();
+        }
     }
 
     private void subscribeObservers() {
@@ -54,13 +59,21 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void searchRecipesApi(String query, int pageNumber) {
-        mRecipeListViewModel.searchRecipesApi(query, pageNumber);
-    }
+    private void initSearchView() {
+        final SearchView searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                mAdapter.displayLoading();
+                mRecipeListViewModel.searchRecipesApi(s, 1);
+                return false;
+            }
 
-
-    private void testRetrofitRequest() {
-       searchRecipesApi("chicken breast", 0);
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -70,6 +83,12 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     @Override
     public void onCategoryClick(String category) {
+        mAdapter.displayLoading();
+        mRecipeListViewModel.searchRecipesApi(category, 0);
+    }
 
+    private void displaySearchCategories() {
+        mRecipeListViewModel.setIsViewingRecipes(false);
+        mAdapter.displaySearchCategories();
     }
 }
