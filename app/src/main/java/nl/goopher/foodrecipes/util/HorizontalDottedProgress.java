@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -114,8 +113,6 @@ public class HorizontalDottedProgress extends View {
                 if (mDotPosition == mDotAmount) {
                     mDotPosition = 0;
                 }
-                Log.d("INFOMETHOD","----On Animation Repeat----");
-
             }
         });
         startAnimation(bounceAnimation);

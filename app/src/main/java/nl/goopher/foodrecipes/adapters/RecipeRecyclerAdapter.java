@@ -78,7 +78,6 @@ public class RecipeRecyclerAdapter extends  RecyclerView.Adapter<RecyclerView.Vi
                     .placeholder(R.drawable.ic_launcher_background);
 
             Uri path = Uri.parse("android.resource://nl.goopher.foodrecipes/drawable/" + mRecipes.get(i).getImage_url());
-            Log.d("HELLO", path.toString());
             Glide.with(viewHolder.itemView.getContext())
                     .setDefaultRequestOptions(requestOptions)
                     .load(path)
@@ -95,6 +94,10 @@ public class RecipeRecyclerAdapter extends  RecyclerView.Adapter<RecyclerView.Vi
             return CATEGORY_TYPE;
         }
         else if(mRecipes.get(position).getTitle().equals("LOADING...")) {
+            return LOADING_TYPE;
+        } else if (position == mRecipes.size() -1
+                && position != 0
+                && !mRecipes.get(position).getTitle().equals("EXHAUSTED...")) {
             return LOADING_TYPE;
         } else {
             return RECIPE_TYPE;
@@ -133,10 +136,6 @@ public class RecipeRecyclerAdapter extends  RecyclerView.Adapter<RecyclerView.Vi
             categories.add(recipe);
         }
         mRecipes = categories;
-        for (Recipe recipe :
-                mRecipes) {
-            Log.d("HELLO", recipe.toString());
-        }
         notifyDataSetChanged();
     }
 
