@@ -33,6 +33,18 @@ public class RecipeRepository {
         return mRecipeApiClient.getRecipes();
     }
 
+    public LiveData<Recipe> getRecipe() {
+        return mRecipeApiClient.getRecipe();
+    }
+
+    public void searchRecipeById(String recipeId) {
+        mRecipeApiClient.searchRecipeById(recipeId);
+    }
+
+    public LiveData<Boolean> isRecipeRequestTimedOut() {
+        return mRecipeApiClient.isRecipeRequestTimedOut();
+    }
+
     public void searchRecipesApi(String query, int pageNumber) {
         if(pageNumber == 0) {
             pageNumber = 1;
