@@ -5,7 +5,7 @@ public class Constants {
     public static final String BASE_URL = "https://www.food2fork.com";
     public static final int NETWORK_TIMEOUT = 3000;
 
-    public static final String API_KEY = "d3b96d3d1e3fb3b35417e62ef63dc50b";
+    public static final String API_KEY = "0853117ce18f25e92f870a4600b8547e";
 
 
     public static final String[] DEFAULT_SEARCH_CATEGORIES =
